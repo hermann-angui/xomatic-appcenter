@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <!-- BootStrap Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <!-- Font-Awesome Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+
+
+    <!-- Plugin Custom Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('assets/css/form-wizard-orange.css') }}">
+    <link href="{{ asset('assets/css/switcher.css') }}" rel="stylesheet">
+    <!--*****
+    If you need to change the form color then you have to just change the CSS file name!! Do it very simply, like as "form-wizard-red.css" for make it red color. Our template other colors name is there ( black, blue, red, pink, purple, teal, green, yellow, orange, brown, cyan, lime ). Replace the name and make it awesome!!!
+    *****-->
+    <style type="text/css">
+
+        .form-wizard-tolal-steps-4 .form-wizard-step {
+            position: relative;
+            float: left;
+            width: 120px;
+            height: 120px;
+            padding: 0 5px;
+            border-radius: 100%;
+            margin-left: 20px;
+        }
+
+        .form-wizard {
+            padding: 25px;
+            background: #fff;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            box-shadow: 0px 0px 6px 3px #777;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            font-weight: 300;
+            color: #888;
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .progress {
+            height: 20px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+            box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return true;">
+
+<!-- main content -->
+<body>
+
+    {% block body %}{% endblock %}
+
+    {% block javascripts %}
+        <!-- Jquery JS -->
+        <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+        <!-- bootStrap JS -->
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+
+    {% endblock %}
+</body>
+
+</html>

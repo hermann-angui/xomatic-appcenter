@@ -1,0 +1,78 @@
+{% extends 'layout.html.twig' %}
+{% block title %}Platforme XO-Matic Installer{% endblock title %}
+{% block body %}
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container">
+            <div class="col-xs-11">
+                <div class="jumbotron">
+                    <h3>Bienvenue sur votre platforme de déploiement</h3>
+                    <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                    <a href="{{ path('new_platform') }}" class="btn btn-secondary" id=""><i class="fa fa-rocket fa-1x" aria-hidden="true"></i> Un nouveaux déploiement</a>
+                </div>
+            </div>
+
+            <hr>
+            <h3 class="text-center">Déploiements en cour</h3>
+            <div class="row">
+                <div class="col-xs-auto col-sm-auto col-lg-auto">
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">Nom du client</div>
+                        <div class="panel-body">
+                            <ul class="panel-list">
+                                <li>
+                                    Déploiement : <kbd class="bgd-info text-right">12/02/2016</kbd>
+                                </li>
+                                <li>
+                                    Mise à jour: <kbd class="bgd-info">29/03/2017</kbd>
+                                </li>
+                                <li>
+                                    Version: <kbd class="bgd-success">V2.2.0</kbd>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer text-center">
+                            <a href="startdeploiement.html" class=""><i class="fa fa-cloud-download" aria-hidden="true"></i> Continuer</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr>
+            <h3 class="text-center">Déploiements terminer</h3>
+            <div class="row">
+                <div class="col-xs-auto col-sm-auto col-lg-auto">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">Nom du client</div>
+                        <div class="panel-body">
+                            <ul class="panel-list">
+                                <li>
+                                    Déploiement : <kbd class="bgd-info text-right">12/02/2016</kbd>
+                                </li>
+                                <li>
+                                    Mise à jour: <kbd class="bgd-info">29/03/2017</kbd>
+                                </li>
+                                <li>
+                                    Version: <kbd class="bgd-success">V2.2.0</kbd>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-footer text-center">
+                            <a href="../Platform/update.html" class=""><i class="fa fa-cloud-download" aria-hidden="true"></i> Mettre à jour</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+{% endblock body %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+{% endblock %}

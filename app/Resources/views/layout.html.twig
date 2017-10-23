@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+
+    <!-- font page -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/simple-sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/sweetalert2.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style2.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="left-nav">
+    <ul>
+        <li><a href="#menu-toggle" class="tx-white" id="menu-toggle"><i class="fa fa-bars fa-2x" aria-hidden="true"></i> </a></li>
+        <li><a href="#page-toggle" class="tx-white" id="page-toggle"><i class="fa fa-search fa-2x"></i></a></li>
+        <li><a href="{{ path('new_platform') }}" class="tx-white"><i class="fa fa-plus fa-2x"></i></a></li>
+        <li><i class=""></i></li>
+    </ul>
+</div>
+
+<div class="slide-page">
+    <div class="container-slide-page">
+        <a href="#page-toggle" class="tx-white" id="page-toggle"><i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i> </a>
+        <hr>
+        <h2>Recherche une platforme</h2>
+        <form>
+            <div class="form-group">
+                <input class="form-control" type="text" name="" id="">
+            </div>
+
+            <input type="submit" class="btn btn-success" name="" id="" value="Recherche">
+        </form>
+
+    </div>
+</div>
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Menu
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('homepage') }}">Tableau de bord <i class="fa fa-tachometer  fa-menu" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="#"></a>
+            </li>
+            <li>
+                <a href="#">Vos déploiements<i class="fa fa-rocket fa-menu" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="#">Statistiques <i class="fa fa-pie-chart fa-menu" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="#">A propos <i class="fa fa-info fa-menu" aria-hidden="true"></i></a>
+            </li>
+            <li>
+                <a href="#menu-toggle" class="" id="menu-toggle">Fermer <i class="fa fa-chevron-left fa-menu" aria-hidden="true"></i></a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    {% block body %}
+        <!-- Page Content -->
+        <!-- /#page-content-wrapper -->
+    {% endblock body %}
+
+</div>
+<!-- /#wrapper -->
+
+
+<!-- Bootstrap core JavaScript -->
+
+{% block javascripts %}
+
+    <!-- Jquery JS -->
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.bootstrap.wizard.js') }}"></script>
+    <script src="{{ asset('assets/js/paper-bootstrap-wizard.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('assets/js/style.js') }}"></script>
+
+    <!-- bootStrap JS -->
+
+{% endblock %}
+
+
+</body>
+
+</html>

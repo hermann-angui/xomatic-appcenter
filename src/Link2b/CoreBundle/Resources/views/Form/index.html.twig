@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+ {% block body %}
+<div class="container">
+    <button id="show" class="btn btn-primary">Modal</button>
+    <!-- Modal -->
+    <div class="modal fade" id="application-modal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <div style="height:64px;width:64px;margin: 0 auto;"><img src="{{ asset('assets/img/circle-snake.svg') }}"/></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+ {% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        (function(){
+            $("#show").click(function(){
+                var m = $("#application-modal");
+                m.modal();
+                $.ajax({
+                    url: '{{ path('ajax_form_application') }}',
+                    type: "GET",
+                    dataType: 'html',
+                    success: function(data){
+                        m.find('.modal-body').html(data);
+                    },
+                    error: function(data){
+                        alert("error");
+                    }
+                })
+            });
+        })();
+    </script>
+{% endblock %}
+

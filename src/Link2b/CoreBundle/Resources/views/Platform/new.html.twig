@@ -1,0 +1,151 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <div class="container">
+                <h1 class="title">Les informations du serveur</h1>
+                <hr>
+                <div class="row justify-content-md-center">
+                    
+                    <div class="col-12 col-md-auto">
+                        <form class="jumbotron" method="post" action="{{ path('create_platform') }}">
+                            <fieldset id="form_1">
+                                <legend><i class="fa fa-database" aria-hidden="true"></i> Information du déploiement </legend>
+                                <div class="form-group">
+                                    <label for="inputName">Titre du deploiement</label>
+                                    <input name="name_deploi" type="text" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="" required>
+                                    <small id="nameHelp" class="form-text text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputVersion">Version du deploiement</label>
+                                    <input name="version_deploi" type="text" class="form-control" id="inputVersion" aria-describedby="versionHelp" placeholder="" required>
+                                    <small id="versionHelp" class="form-text text-danger">* La version de motic qui a été déploier</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="inputServe">Chemin du repertoir du trafique</label>
+                                    <input name="traefik_dir" type="text" class="form-control" id="inputServe" aria-describedby="serveHelp" placeholder="" required>
+                                    <small id="serveHelp" class="form-text text-danger">*</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputServe">Chemin du repertoir d'instalation</label>
+                                    <input name="installation_dir" type="text" class="form-control" id="inputServe" aria-describedby="installDirHelp" placeholder="" required>
+                                    <small id="installDirHelp" class="form-text text-danger">*</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputServe">Chemin du repertoir XOMATIC</label>
+                                    <input name="xomatic_dir" type="text" class="form-control" id="inputServe" aria-describedby="maticDirHelp" placeholder="" required>
+                                    <small id="maticDirHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <button class="btn btn-outline-primary" id="btn-next">Suivant <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            </fieldset>
+                            
+                            <fieldset id="form_2">
+                                <legend><i class="fa fa-server"></i> SSH </legend>
+                                <div class="form-group">
+                                    <label for="inputSsh">Lien SSH</label>
+                                    <input type="text" class="form-control" id="inputSsh" aria-describedby="sshHelp" placeholder="" required>
+                                    <small id="sshHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLoginSsh">Indentifiant (SSH)</label>
+                                    <input name="ssh_username" type="text" class="form-control" id="inputLoginSsh" aria-describedby="loginHelp" placeholder="Nom d'utilisateur SSH" required>
+                                    <small id="loginHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword">Mot de passe (SSH)</label>
+                                    <input name="ssh_password" type="password" class="form-control" id="inputPassword" aria-describedby="passSshHelp" placeholder="Mot de passe du compte SSH" required>
+                                    <small id="passSshHelp" class="form-text text-danger">* Mot de passe SSH </small>
+                                </div>
+                                <button class="btn btn-outline-primary" id="btn-prev">Retour <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-primary" id="btn-next">Suivant <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            </fieldset>
+
+                            <fieldset id="form_3">
+                                <legend><i class="fa fa-server"></i> FTP </legend>
+                                <div class="form-group">
+                                    <label for="inputFtp">Lien (FTP)</label>
+                                    <input type="text" class="form-control" id="inputFtp" aria-describedby="ftpHelp" placeholder="Lien ftp du serveur" required>
+                                    <small id="ftpHelp" class="form-text text-danger">*</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputLoginFtp">Indentifiant (FTP)</label>
+                                    <input name="ftp_login" type="text" class="form-control" id="inputLoginFtp" aria-describedby="ftpLoginHelp" placeholder="Nom d'utilisateur FTP" required>
+                                    <small id="ftpLoginHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPasswordFtp">Mot de passe (FTP)</label>
+                                    <input name="ftp_password" type="password" class="form-control" id="inputPasswordFtp" aria-describedby="passFtpHelp" placeholder="Mot de passe du compte FTP" required>
+                                    <small id="passFtpHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <button class="btn btn-outline-primary" id="btn-prev">Retour <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-primary" id="btn-next">Suivant <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            </fieldset>
+
+                            <fieldset id="form_4">
+                                <legend><i class="fa fa-github"></i> GitHub </legend>
+                                <div class="form-group">
+                                    <label for="inputLoginGithub">Indentifiant gitHub</label>
+                                    <input name="github_username" type="text" class="form-control" id="inputLoginGithub" aria-describedby="githubHelp" placeholder="Nom d'utilisateur gitHub" required>
+                                    <small id="githubHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPasswordGithub">Mot de passe ( gitHub )</label>
+                                    <input name="github_password" type="password" class="form-control" id="inputPasswordGithub" placeholder="Mot de passe du compte gitHub" required>
+                                    <small id="githubHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputGithubBranch">Le nom de la branch gitHub</label>
+                                    <input name="github_branch" type="text" class="form-control" id="inputGithubBranch" aria-describedby="branchGithubHelp" placeholder="Branch gitHub" required>
+                                    <small id="branchGithubHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputGithubBranch">Le nom de la branch master</label>
+                                    <input name="github_master" type="text" class="form-control" id="inputGithubBranch" aria-describedby="branchGithubHelp" placeholder="">
+                                    <small id="MbranchGithubHelp" class="form-text text-danger"></small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputGithubBranch">Le github trafique</label>
+                                    <input name="github_traefik" type="text" class="form-control" id="inputGithubBranch" aria-describedby="trafGithubHelp" placeholder="Branch gitHub" required>
+                                    <small id="trafGithubHelp" class="form-text text-danger">*</small>
+                                </div>
+                                <button class="btn btn-outline-primary" id="btn-prev">Retour <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                                <button class="btn btn-outline-primary" id="btn-next">Suivant <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                            </fieldset>
+                            
+                            <fieldset id="form_5">
+                                <legend>Autre information</legend>
+
+                                <div class="form-group">
+                                    <label for="textarea">Description</label>
+                                    <textarea class="form-control" id="textarea" rows="3" style="height: 100px"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="textareaNote">Note</label>
+                                    <textarea class="form-control" id="textareaNote" rows="4" style="height: 100px"></textarea>
+                                </div>
+                                <button class="btn btn-outline-primary" id="btn-prev">Retour <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn btn-outline-primary"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Lancer le déploiement</button>
+                            </fieldset>
+                            
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+{% endblock body %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+{% endblock %}
+    

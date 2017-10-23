@@ -1,0 +1,29 @@
+homepage:
+    path:     /
+    defaults: { _controller: CoreBundle:Index:index }
+
+new_platform:
+    path:     /platform/new
+    defaults: { _controller: CoreBundle:Platform:new }
+
+create_platform:
+    path:     /platform/create
+    defaults: { _controller: CoreBundle:Platform:create }
+
+new_deploy_platform:
+    path:     /platform/deploy
+    defaults: { _controller: CoreBundle:Platform:newDeploiement }
+
+
+api_install:
+    path:     /api/install
+    defaults: { _controller: CoreBundle:Api/ApiInstall:install }
+
+api_checkif_install:
+    path:     /api/check/install
+    defaults: { _controller: CoreBundle:Api/ApiInstall:checkIfInstall }
+
+
+ajax_form_application:
+    path:     /ajax/frm/application
+    defaults: { _controller: CoreBundle:Ajax/Form:applicationForm }
