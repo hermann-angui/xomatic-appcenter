@@ -15,15 +15,18 @@ class ApiInstallController extends Controller
     {
 
         try {
-            /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
 
             $id = $request->query->get('id', "0");
+
             $parameters['step'] = $request->query->get('step', '0');
 
-            $platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
+            /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
+            $platform = $this->getDoctrine()
+                ->getRepository(Platform::class)
+                ->find($id);
 
-            if($platform){
-
+            if($platform)
+            {
                 $parameters['server_name'] = $platform->getId();
                 $parameters['ssh_username'] = $platform->getServer();
                 $parameters['ssh_password'] = $platform->getSshPassword();
@@ -65,14 +68,14 @@ class ApiInstallController extends Controller
                     $response['console'][1] = "Veuillez reprendre svp";
                     $response['version'] = "2.10";
                     break;
+
                 case "1":
-                   // $response['console'][0] = $this->installGit($ssh);
+                    $response['console'][0] = $this->installGit($ssh);
                     $response['version'] = $this->exec_command($ssh, "git --version");
                     $response['status'] = ($this->isInstalled($ssh, "git")) ? "success" : "failed";
                     break;
 
                 case "2":
-
                     $response['console'][0] = $this->installDocker($ssh);
                     $response['version'] = $this->exec_command($ssh, "docker --version");
                     $response['status'] = ($this->isInstalled($ssh, "docker")) ? "success" : "failed";
@@ -99,12 +102,14 @@ class ApiInstallController extends Controller
                     break;
 
                 case "6":
-
                     $response['console'][0] = $this->gitCloneXomatic($ssh, $parameters['install_dir'], $parameters['xomatic_dir'] , $parameters['github_branch']);
                     $response['console'][1] = $this->composerInstallXomaticVendorPackage($ssh, $parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
                     $response['console'][2] = $this->launchXomaticDockerContainer($ssh, $parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
                     $this->chmodXomaticDir($ssh,$parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
                     break;
+
+                default:
+                    $response['error'] = "Aucune étapes ne correspond a votre choix";
             }
 
             return new JsonResponse($response);
@@ -122,11 +127,10 @@ class ApiInstallController extends Controller
 
         try {
 
-            /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-
             $software = $request->query->get("software", "");
             $id = $request->query->get('id', "0");
 
+            /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
             $platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
 
             if($platform){
@@ -152,22 +156,23 @@ class ApiInstallController extends Controller
                 }
             }
 
-
             switch ($software)
             {
-
                 case "docker":
                     $response['version'] = $this->exec_command($ssh, "docker --version");
                     $response['status'] = ($this->isInstalled($ssh, "docker")) ? "success" : "failed";
                     break;
+
                 case "docker-compose":
                     $response['version'] = $this->exec_command($ssh, "docker-compose --version");
                     $response['status'] = ($this->isInstalled($ssh, "docker-compose")) ? "success" : "failed";
                     break;
+
                 case "composer":
                     $response['version'] = $this->exec_command($ssh, "composer --version");
                     $response['status'] = ($this->isInstalled($ssh, "composer")) ? "success" : "failed";
                     break;
+
                 case "git":
                     $response['version'] = $this->exec_command($ssh, "git --version");
                     $response['status'] = ($this->isInstalled($ssh, "git")) ? "success" : "failed";
@@ -239,7 +244,7 @@ class ApiInstallController extends Controller
             'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list;' .
             'apt-get update;' .
             'apt-get -y install docker-ce'
-            );
+        );
     }
 
 
@@ -261,7 +266,7 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin" .
             "composer --version"
-            );
+        );
     }
 
 
@@ -285,7 +290,7 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "cd {$path};" .
             "git clone {$url} {$clone_dir}"
-            );
+        );
     }
 
 
@@ -298,7 +303,7 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "cd {$path};" .
             "docker-compose up -d"
-             );
+        );
     }
 
 
@@ -312,7 +317,7 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "cd {$path};" .
             "git clone {$url} {$clone_dir}"
-            );
+        );
     }
 
 
@@ -325,7 +330,7 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "cd {$path}/app;" .
             "php composer install --ignore-platform-reqs"
-            );
+        );
     }
 
     /**
@@ -337,7 +342,7 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "cd {$path};" .
             "docker-compose up -d"
-            );
+        );
     }
 
     /**
