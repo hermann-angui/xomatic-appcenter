@@ -14,7 +14,7 @@ class ApiInstallController extends Controller
     public function installAction(Request $request)
     {
 
-        try {
+       try {
 
             $id = $request->query->get('id', "0");
 
@@ -22,8 +22,8 @@ class ApiInstallController extends Controller
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
             $platform = $this->getDoctrine()
-                ->getRepository(Platform::class)
-                ->find($id);
+                             ->getRepository(Platform::class)
+                             ->find($id);
 
             if($platform)
             {
@@ -43,8 +43,14 @@ class ApiInstallController extends Controller
             $parameters['ssh_username'] = "root";           // "root";
             $parameters['ssh_password'] = "anguidev";           //"fgHIoj";
             $parameters['install_dir']  =  "/home/angui";       //"/home/debian";
+            $parameters['xomatic_dir'] =  "xomatic";
+            $parameters['traefik_dir']  = "traefik";
+
             $parameters['github_branch'] = "https://github.com/hermann-angui/TestRepo.git";
+            $parameters['github_branch'] = substr_replace($parameters['github_branch'], "hermann-angui:scawfield2870@", 8, 0);
+
             $parameters['github_traefik'] = "https://github.com/ltbt/dmpxo-traefik.git";
+            $parameters['github_traefik'] = substr_replace($parameters['github_traefik'], "hermann-angui:scawfield2870@", 8, 0);
 
             $response = null;
 
@@ -78,7 +84,7 @@ class ApiInstallController extends Controller
                 case "2":
                     $response['console'][0] = $this->installDocker($ssh);
                     $response['version'] = $this->exec_command($ssh, "docker --version");
-                    $response['status'] = ($this->isInstalled($ssh, "docker")) ? "success" : "failed";
+                    $response['status'] = ($this->isInstalled($ssh, "docker-ce")) ? "success" : "failed";
                     break;
 
                 case "3":
@@ -98,14 +104,14 @@ class ApiInstallController extends Controller
                 case "5":
 
                     $response['console'][0] = $this->gitCloneTreafik($ssh, $parameters['install_dir'], $parameters['traefik_dir'] , $parameters['github_traefik']);
-                    $response['console'][1] = $this->launchTraefikDockerContainer($ssh,"{$parameters['install_dir']} . "/" . {$parameters['traefik_dir']}");
+                    $response['console'][1] = $this->launchTraefikDockerContainer($ssh,"{$parameters['install_dir']}/{$parameters['traefik_dir']}");
                     break;
 
                 case "6":
                     $response['console'][0] = $this->gitCloneXomatic($ssh, $parameters['install_dir'], $parameters['xomatic_dir'] , $parameters['github_branch']);
-                    $response['console'][1] = $this->composerInstallXomaticVendorPackage($ssh, $parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
-                    $response['console'][2] = $this->launchXomaticDockerContainer($ssh, $parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
-                    $this->chmodXomaticDir($ssh,$parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
+                    $response['console'][1] = $this->composerInstallXomaticVendorPackage($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
+                    $response['console'][2] = $this->launchXomaticDockerContainer($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
+                    $this->chmodXomaticDir($ssh,"{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
                     break;
 
                 default:
@@ -122,6 +128,10 @@ class ApiInstallController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function checkIfInstallAction(Request $request)
     {
 
@@ -160,7 +170,7 @@ class ApiInstallController extends Controller
             {
                 case "docker":
                     $response['version'] = $this->exec_command($ssh, "docker --version");
-                    $response['status'] = ($this->isInstalled($ssh, "docker")) ? "success" : "failed";
+                    $response['status'] = ($this->isInstalled($ssh, "docker-ce")) ? "success" : "failed";
                     break;
 
                 case "docker-compose":
@@ -192,7 +202,70 @@ class ApiInstallController extends Controller
 
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateAction(Request $request)
+    {
 
+        try {
+
+            $id = $request->query->get('id', "0");
+
+            /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
+            $platform = $this->getDoctrine()
+                            ->getRepository(Platform::class)
+                            ->find($id);
+
+            if($platform)
+            {
+                $parameters['server_name'] = $platform->getId();
+                $parameters['ssh_username'] = $platform->getServer();
+                $parameters['ssh_password'] = $platform->getSshPassword();
+                $parameters['install_dir'] = $platform->getInstallionDir();
+
+                $parameters['xomatic_dir'] = $platform->getXomaticDir();
+                $parameters['traefik_dir'] = $platform->getTraefikDir();
+
+                $parameters['github_branch'] = $platform->getGithubBranch();
+                $parameters['github_traefik'] = $platform->getGithubTraefik();
+            }
+
+            $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
+            $parameters['ssh_username'] = "root";           // "root";
+            $parameters['ssh_password'] = "anguidev";           //"fgHIoj";
+            $parameters['install_dir']  =  "/home/angui";       //"/home/debian";
+            $parameters['github_branch'] = "https://github.com/hermann-angui/TestRepo.git";
+            $parameters['github_traefik'] = "https://github.com/ltbt/dmpxo-traefik.git";
+            $parameters['traefik_dir'] = "traefik";
+
+            $response = null;
+
+            if(!isset($ssh)) {
+
+                $ssh = new Net_SSH2($parameters['server_name']);
+
+                if (!$ssh->login($parameters['ssh_username'], $parameters['ssh_password']))
+                {
+                    exit('Echec de connexion au serveur');
+                }
+            }
+
+            $response['console'][0] = $this->gitUpdateXomatic($ssh, $parameters['install_dir'], $parameters['xomatic_dir'] , $parameters['github_branch']);
+            $response['console'][1] = $this->composerInstallXomaticVendorPackage($ssh, $parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
+            $response['console'][2] = $this->launchXomaticDockerContainer($ssh, $parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
+            $this->chmodXomaticDir($ssh,$parameters['install_dir'] . "/" . $parameters['xomatic_dir']);
+
+            return new JsonResponse($response);
+
+        } catch (\Exception $e) {
+
+            $response['error'] = $e->getMessage();
+            return new JsonResponse($response);
+        }
+
+    }
 
     /**
      * @param $ssh Net_SSH2
@@ -201,6 +274,8 @@ class ApiInstallController extends Controller
      */
     function isInstalled($ssh, $package)
     {
+        if($package==="docker-compose")
+        $res = $ssh->exec("test -e FILENAME && echo "File exists" || echo "File doesn't exist");
         $isPackageInstallMessage = "install ok installed";
 
         $res = $ssh->exec("dpkg-query -W -f='\${Status}' " . $package);
@@ -239,9 +314,9 @@ class ApiInstallController extends Controller
     function installDocker($ssh)
     {
         return $this->exec_command($ssh, 'apt-get update;' .
-            'apt-get -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common' .
-            'curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add -;' .
-            'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list;' .
+            'apt-get -y install apt-transport-https ca-certificates curl gnupg2 software-properties-common;' .
+            'curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -;' .
+            'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable";' .
             'apt-get update;' .
             'apt-get -y install docker-ce'
         );
@@ -254,7 +329,8 @@ class ApiInstallController extends Controller
      */
     function installDockerCompose($ssh)
     {
-        return $this->exec_command($ssh, 'apt-get -y docker-compose');
+        return $this->exec_command($ssh, 'curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose;
+        chmod +x /usr/local/bin/docker-compose');
     }
 
 
@@ -276,7 +352,7 @@ class ApiInstallController extends Controller
      */
     function installGit($ssh)
     {
-        return $this->exec_command($ssh, "apt-get -y install git-all");
+        return $this->exec_command($ssh, "apt-get -y install git");
     }
 
 
@@ -317,6 +393,19 @@ class ApiInstallController extends Controller
     {
         return $this->exec_command($ssh, "cd {$path};" .
             "git clone {$url} {$clone_dir}"
+        );
+    }
+
+    /**
+     * @param $ssh Net_SSH2
+     * @param $path
+     * @param $url
+     * @return bool
+     */
+    function gitUpdateXomatic($ssh, $path, $clone_dir, $url)
+    {
+        return $this->exec_command($ssh, "cd {$path}/{$clone_dir};" .
+            "git pull {$url}"
         );
     }
 
