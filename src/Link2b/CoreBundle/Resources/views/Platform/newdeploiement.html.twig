@@ -22,15 +22,25 @@
 									</div>
 									<ul>
 			                            <li>
-											<a href="#docker" data-toggle="tab">
+											<a href="#start" data-toggle="tab">
 												<div class="icon-circle">
 													<i class="fa fa-server fa-2x"></i>
 												</div>
 												Démarage du déploiement
 											</a>
 										</li>
+										
+                                        <li>
+											<a href="#git" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="fa fa-git fa-2x"></i>
+												</div>
+												Git
+											</a>
+										</li>
+
 			                            <li>
-											<a href="#type" data-toggle="tab">
+											<a href="#docker" data-toggle="tab">
 												<div class="icon-circle">
 													<i class="fa fa-server fa-2x"></i>
 												</div>
@@ -38,7 +48,7 @@
 											</a>
 										</li>
 			                            <li>
-											<a href="#facilities" data-toggle="tab">
+											<a href="#docker-compose" data-toggle="tab">
 												<div class="icon-circle">
 													<i class="fa fa-server fa-2x"></i>
 												</div>
@@ -46,31 +56,39 @@
 											</a>
 										</li>
 			                            <li>
-											<a href="#description" data-toggle="tab">
+											<a href="#composer" data-toggle="tab">
 												<div class="icon-circle">
 													<i class="fa fa-server fa-2x"></i>
 												</div>
 												Composer 
 											</a>
                                         </li>
-                                        <li>
-											<a href="#fin" data-toggle="tab">
+										<li>
+											<a href="#traefik" data-toggle="tab">
 												<div class="icon-circle">
-													<i class="fa fa-git fa-2x"></i>
+													<i class="fa fa-server fa-2x"></i>
 												</div>
-												Git & Cloner de la platforme
+												Traefik
+											</a>
+										</li>
+										<li>
+											<a href="#xomatic" data-toggle="tab">
+												<div class="icon-circle">
+													<i class="fa fa-server fa-2x"></i>
+												</div>
+												XO-Matic
 											</a>
 										</li>
 			                        </ul>
 								</div>
 		                        <div class="tab-content">
-		                            <div class="tab-pane" id="docker">
+		                            <div class="tab-pane" id="start">
 		                            	<div class="row">
 		                                	<div class="col-sm-12">
                                                 <br>
                                                 <h5 class="info-text">Démarage du déploiement </h5>
                                                 
-                                                <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 10%">
+                                                <div style="margin-left: 10%; margin-right: 10%; margin-bottom: 6%">
                                                     <p>
                                                         Pour le bon fonctionnement de la platforme il est indispensable de télécharger les differente dépandence qui sont:
                                                     </p>
@@ -81,11 +99,44 @@
                                                         <li>Git</li>
                                                     </ul>
 
-                                                </div>
+												</div>
+												<div class="text-center">
+													<input type='button' class="btn btn-next btn-fill btn-success btn-wd btn-start" name='next' value="Démarer l'instalation" install="git" id="0"/>
+												</div>
 		                            		</div>
 		                            	</div>
-		                            </div>
-		                            <div class="tab-pane" id="type">
+									</div>
+									
+									
+                                    <div class="tab-pane" id="git">
+										<br>
+										<h5 class="info-text">Instalation git</h5>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="alert alert-info text-center">
+													<p class="text-info">
+														Git n'est pas installer sur le serveur. Pour le faire cliquer sur le bouton installer git.
+													</p>
+													<a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="0"> Installer git <i class="fa fa-download"></i></a>
+												</div>
+												<div class="content-0 text-center" >
+												</div>
+											</div>
+										</div>
+										<div class="wizard-footer">
+											<div class="pull-right">
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-1' name='next' value='Suivant' />
+												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Terminer' />
+											</div>
+		
+											<div class="pull-left">
+												<input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+
+		                            <div class="tab-pane" id="docker">
                                         <br>
 		                                <h5 class="info-text">Instalation de docker</h5>
 		                                <div class="row">
@@ -95,10 +146,8 @@
                                                         Docker n'est pas installer sur le serveur. Vous étes prier d'installer docker.
                                                     </p>
                                                     <a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="0"> Démarer l'instalation de docker <i class="fa fa-download"></i></a>
-                                                </div>
-                                                <div class="content-0 text-center" >
-                                                </div>
-                                                <!--
+												</div>
+												<!--
                                                 <div class="alert alert-success text-center">
                                                     <p class="text-success">
                                                         Docker est installer sur le serveur. Vous étes prier passer a l'etape suivante.
@@ -106,11 +155,27 @@
                                                     <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value="Démarer l'instalation de docker" />
                                                 </div>
                                                 -->
+                                                <div class="content-1 text-center" >
+                                                </div>
+                                                
                                                
                                             </div>
-		                                </div>
-		                            </div>
-		                            <div class="tab-pane" id="facilities">
+										</div>
+										
+										<div class="wizard-footer">
+											<div class="pull-right">
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-2' name='next' value='Suivant' />
+												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Terminer' />
+											</div>
+		
+											<div class="pull-left">
+												<input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									
+		                            <div class="tab-pane" id="docker-compose">
                                         <br>
 		                                <h5 class="info-text">Instalation de Docker-compose</h5>
 		                                <div class="row">
@@ -121,12 +186,24 @@
                                                     </p>
                                                     <a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="1"> Démarer l'instalation de docker <i class="fa fa-download"></i></a>
                                                 </div>
-                                                <div class="content-1 text-center" >
+                                                <div class="content-2 text-center" >
                                                 </div>
                                             </div>
-		                                </div>
-		                            </div>
-		                            <div class="tab-pane" id="description">
+										</div>
+										<div class="wizard-footer">
+											<div class="pull-right">
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-3' name='next' value='Suivant' />
+												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Terminer' />
+											</div>
+		
+											<div class="pull-left">
+												<input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									
+		                            <div class="tab-pane" id="composer">
                                         <br>
                                         <h5 class="info-text"> Instalation de composer </h5>
 		                                <div class="row">
@@ -137,40 +214,81 @@
                                                     </p>
                                                     <a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="2"> Démarer l'instalation de docker <i class="fa fa-download"></i></a>
                                                 </div>
-                                                <div class="content-2 text-center" >
-                                                </div>
-                                            </div>
-		                                </div>
-                                    </div>
-                                    
-                                    <div class="tab-pane" id="fin">
-                                        <br>
-                                        <h5 class="info-text">Instalation git et cloner de la platforme </h5>
-		                                <div class="row">
-		                                    <div class="col-sm-12">
-                                                <div class="alert alert-info text-center">
-                                                    <p class="text-info">
-                                                        Composer n'est pas installer sur le serveur. Vous étes prier d'installer docker.
-                                                    </p>
-                                                    <a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="3"> Démarer l'instalation de docker <i class="fa fa-download"></i></a>
-                                                </div>
                                                 <div class="content-3 text-center" >
                                                 </div>
                                             </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <div class="wizard-footer">
-	                            	<div class="pull-right">
-	                                    <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Suivant' />
-	                                    <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Terminer' />
+										</div>
+										<div class="wizard-footer">
+											<div class="pull-right">
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-4' name='next' value='Suivant' />
+												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Terminer' />
+											</div>
+		
+											<div class="pull-left">
+												<input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
+											</div>
+											<div class="clearfix"></div>
+										</div>
+                                    </div>
+									
+									
+                                    <div class="tab-pane" id="traefik">
+										<br>
+										<h5 class="info-text">Instalation git et cloner de la platforme </h5>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="alert alert-info text-center">
+													<p class="text-info">
+														Composer n'est pas installer sur le serveur. Vous étes prier d'installer docker.
+													</p>
+													<a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="3"> Démarer l'instalation de docker <i class="fa fa-download"></i></a>
+												</div>
+												<div class="content-4 text-center" >
+												</div>
+											</div>
+										</div>
+										<div class="wizard-footer">
+											<div class="pull-right">
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-5' name='next' value='Suivant' />
+												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Terminer' />
+											</div>
+		
+											<div class="pull-left">
+												<input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
+											</div>
+											<div class="clearfix"></div>
+										</div>
 									</div>
 
-	                                <div class="pull-left">
-	                                    <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
-	                                </div>
-	                                <div class="clearfix"></div>
+									<div class="tab-pane" id="xomatic">
+										<br>
+										<h5 class="info-text">Instalation git et cloner de la platforme </h5>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="alert alert-info text-center">
+													<p class="text-info">
+														Composer n'est pas installer sur le serveur. Vous étes prier d'installer docker.
+													</p>
+													<a href="http://localhost:8080/zend/test.php" class="btn btn-info" id="btn-intall" level="3"> Démarer l'instalation de docker <i class="fa fa-download"></i></a>
+												</div>
+												<div class="content-5 text-center" >
+												</div>
+											</div>
+										</div>
+										<div class="wizard-footer">
+											<div class="pull-right">
+												<input type='button' class='btn btn-next btn-fill btn-success' name='next' value='Suivant' />
+												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd btn-end' name='finish' value='Terminer' />
+											</div>
+		
+											<div class="pull-left">
+												<input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Retour' />
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
 		                        </div>
+		                        
 		                    </form>
 		                </div>
 		            </div> <!-- wizard container -->
@@ -183,6 +301,64 @@
 
 {% block javascripts %}
 
-    {{ parent() }}
+	{{ parent() }}
+	
+	<script>
+		
+	$('[name="next"]').on('click' ,function () { 
+		var select = $(this);
+		//console.log(btn);
+
+		$.ajax({
+			method: 'POST',
+			url: 'http://localhost:8080/zend/test.php',
+			data: {
+				id: select.attr('id'),
+				software: select.attr('install')
+			}
+		}).done(function (data) { 
+			console.log(data);
+			
+		})
+	 });
+
+	$('[id="btn-intall"]').on('click', function (e) { 
+		e.preventDefault();
+		var element = $(this);
+		var url = element.attr('href');
+		//console.log(url);
+		var level = element.attr('level');
+
+		element.parent().fadeOut(function () { 
+			$('.content-' + level).html('<img src="load.gif" class="load">');
+			$.ajax({
+				method: 'GET',
+				url: url,
+				data: {id: '0', level: level},
+				dataType: 'JSON'
+			}).done(function (data) { 
+				$('.load').fadeOut(function () { 
+					swal(
+						'Good job!',
+						'You clicked the button!',
+						'success'
+						)
+					$('.content-' + level).html('<div class="terminal"><pre>' + data + '</pre></div>')
+				});
+			}).fail(function (data) { 
+				$('.load').fadeOut(function () {
+					
+					swal(
+						'Oops...',
+						'Une erreur s\'est produite pendant l\'instalation de DOCKER!',
+						'error'
+					)
+					$('.content-' + level).html('<div class="terminal"><pre>' + data + '</pre></div>')
+				});
+			})
+		});
+
+		});
+	</script>
 
 {% endblock %}
