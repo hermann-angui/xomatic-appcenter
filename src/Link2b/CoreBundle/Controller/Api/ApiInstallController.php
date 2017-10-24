@@ -274,13 +274,21 @@ class ApiInstallController extends Controller
      */
     function isInstalled($ssh, $package)
     {
-        if($package==="docker-compose")
-        $res = $ssh->exec("test -e FILENAME && echo "File exists" || echo "File doesn't exist");
-        $isPackageInstallMessage = "install ok installed";
+        $res = null;
 
-        $res = $ssh->exec("dpkg-query -W -f='\${Status}' " . $package);
+        if($package==="docker-compose"){
+            $res = $ssh->exec('test -e FILENAME && echo "File exists" || echo "File doesn\'t exist');
+            $res==="1" ? true: false;
+        }
 
-        return (strcmp(trim($res), trim($isPackageInstallMessage)) === 0) ? true : false;
+        else{
+            $isPackageInstallMessage = "install ok installed";
+            $res = $ssh->exec("dpkg-query -W -f='\${Status}' " . $package);
+            return (strcmp(trim($res), trim($isPackageInstallMessage)) === 0) ? true : false;
+        }
+
+
+
     }
 
 
