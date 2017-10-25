@@ -33,7 +33,7 @@
                                         <li>
 											<a href="#git" data-toggle="tab">
 												<div class="icon-circle">
-													<i class="fa fa-git fa-2x"></i>
+													<i class="fa fa-server fa-2x"></i>
 												</div>
 												Git
 											</a>
@@ -93,10 +93,13 @@
                                                         Pour le bon fonctionnement de la platforme il est indispensable de télécharger les differente dépandence qui sont:
                                                     </p>
                                                     <ul>
+                                                        <li>Git</li>
                                                         <li>Docker</li>
                                                         <li>Docker compose</li>
-                                                        <li>Composer</li>
-                                                        <li>Git</li>
+														<li>Composer</li>
+														<li>Traefik</li>
+														<li>Git</li>
+														<li>XO-Matic</li>
                                                     </ul>
 
 												</div>
@@ -107,14 +110,11 @@
 		                            	</div>
 									</div>
 									
-									<div class="tab-pane text-center" id="load" style="display: none">
-										<br>
-										<img src="{{ asset('assets/img/load.gif') }}" alt="">
-									</div>
+									
 									
                                     <div class="tab-pane" id="git" >
 										<br>
-										<h5 class="info-text">Installation git</h5>
+										<!--<h5 class="info-text">Installation git</h5>-->
 										<div class="row">
 											<div class="col-sm-12">
 												<div class="alert text-center" id="msg-git">
@@ -138,7 +138,7 @@
 									
 		                            <div class="tab-pane" id="docker" >
                                         <br>
-		                                <h5 class="info-text">Installation de docker</h5>
+		                                <!--<h5 class="info-text">Installation de docker</h5>-->
 		                                <div class="row">
 		                                    <div class="col-sm-12">
                                                 <div id="msg-docker">
@@ -166,7 +166,7 @@
 									
 		                            <div class="tab-pane" id="docker-compose">
                                         <br>
-		                                <h5 class="info-text">Installation de Docker-compose</h5>
+		                                <!--<h5 class="info-text">Installation de Docker-compose</h5>-->
 		                                <div class="row">
 		                                    <div class="col-sm-12">
                                                 <div id="msg-docker-compose">
@@ -191,7 +191,7 @@
 									
 		                            <div class="tab-pane" id="composer">
                                         <br>
-                                        <h5 class="info-text"> Installation de composer </h5>
+                                        <!--<h5 class="info-text"> Installation de composer </h5>-->
 		                                <div class="row">
 		                                    <div class="col-sm-12">
                                                 <div id="msg-composer">
@@ -217,7 +217,7 @@
 									
                                     <div class="tab-pane" id="traefik">
 										<br>
-										<h5 class="info-text">Installation de Traefik</h5>
+										<!--<h5 class="info-text">Installation de Traefik</h5>-->
 										<div class="row">
 											<div class="col-sm-12">
 												<div id="msg-traefik">
@@ -242,7 +242,7 @@
 
 									<div class="tab-pane" id="xomatic">
 										<br>
-										<h5 class="info-text">Installation XO-Matic </h5>
+										<!--<h5 class="info-text">Installation XO-Matic </h5>-->
 										<div class="row">
 											<div class="col-sm-12">
 												<div class="" id="msg-xomatic">
@@ -263,6 +263,20 @@
 											</div>
 											<div class="clearfix"></div>
 										</div>
+									</div>
+
+									<div class="tab-pane text-center" id="load" style="display: none">
+										<br>
+										<h5 class="info-text">Verification</h5>
+										<br>
+										<img src="{{ asset('assets/img/load.gif') }}" alt="">
+									</div>
+
+									<div class="tab-pane text-center" id="load-install" style="display: none">
+										<br>
+										<h5 class="info-text">Installation</h5>
+										<br>
+										<img src="{{ asset('assets/img/load.gif') }}" alt="">
 									</div>
 		                        </div>
 		                        
@@ -305,7 +319,7 @@
 				$('[id="msg-' + select.data('software') + '"]')
 				.removeClass('*')
 				.addClass('alert alert-success text-center')
-				.html(btn_close + '<p class="text-success">' + data.version + ' est installé sur le serveur. Passer a l\'étape suivante.</p><br>')
+				.html(btn_close + '<h4 class="alert-heading">Vérification de ' + data.version + ' !</h4><p class="text-success">' + data.version + ' est installé sur le serveur. Passer a l\'étape suivante.</p><br>')
 				.slideDown();
 				$('[id="btn-intall"]').hide();
 			} else if (data.status === 'failed') {
@@ -314,9 +328,9 @@
 				$('[id="msg-' + select.data('software') + '"]')
 				.removeClass('*')
 				.addClass('alert alert-danger text-center')
-				.html(btn_close + '<p class="text-danger">' + select.attr('software') + ' n\'est pas installé sur le serveur. Pour le faire cliquer sur le bouton installer ' + select.attr('software') + '.</p>')
+				.html(btn_close + '<h4 class="alert-heading">Vérification de ' + select.data('software') + ' !</h4><p class="text-danger">' + select.data('software') + ' n\'est pas installé sur le serveur. Pour le faire cliquer sur le bouton installer ' + select.data('software') + '.</p>')
 				.slideDown();
-
+				$('[id="btn-intall"]').show();
 				$('[name="next"]').hide();
 
 			}
@@ -359,7 +373,7 @@
 				break;
 		}
 		//alert(step);
-		$('[id="load"]').fadeToggle();
+		$('[id="load-install"]').fadeToggle();
 		$('[id="msg-' + element.data('step') + ']').fadeToggle();
 
 		$.ajax({
@@ -371,7 +385,7 @@
 			},
 			dataType: 'JSON'
 		}).done(function (data) { 
-			$('[id="load"]').fadeToggle();
+			$('[id="load-install"]').fadeToggle();
 			if (data.status === 'success') {
 
 				swal(
@@ -396,7 +410,7 @@
 			
 		})
 		.fail(function () { 
-			$('[id="load"]').fadeToggle();
+			$('[id="load-install"]').fadeToggle();
 			swal(
 				'Oops...',
 				'Une erreur réseau s\'est produite pendant l\'instalation de ' + element.data('step') + '!',
