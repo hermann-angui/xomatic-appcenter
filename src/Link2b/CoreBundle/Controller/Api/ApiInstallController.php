@@ -282,20 +282,22 @@ class ApiInstallController extends Controller
     {
         $res = null;
 
-        if($package==="docker-compose")
-        {
-            $res = $ssh->exec('test -e /usr/local/bin//docker-compose && echo "1" || echo "0');
-            echo $res . PHP_EOL;
+        if($package==="docker-compose") {
+
+            $res = $ssh->exec('test -e /usr/local/bin/docker-compose && echo "1" || echo "0');
             return ($res === "1") ? true : false;
-        }elseif($package==="composer"){
+
+        }else if($package==="composer") {
+
             $res = $ssh->exec('test -e /usr/local/bin/composer && echo "1" || echo "0');
             return ($res === "1") ? true : false;
-        }
-        else{
+
+        }else {
 
             $isPackageInstallMessage = "install ok installed";
             $res = $ssh->exec("dpkg-query -W -f='\${Status}' " . $package);
             return (strcmp(trim($res), trim($isPackageInstallMessage)) === 0) ? true : false;
+
         }
 
 
