@@ -20,7 +20,7 @@ class ApiInstallController extends Controller
             $id = $request->query->get('id', "0");
             $parameters['step'] = $request->query->get('step', '0');
 
-            $platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
+            /*$platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
 
             if($platform){
 
@@ -34,7 +34,7 @@ class ApiInstallController extends Controller
 
                 $parameters['github_branch'] = $platform->getGithubBranch();
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
-            }
+            }*/
 
             $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
             $parameters['ssh_username'] = "root";           // "root";
@@ -66,7 +66,7 @@ class ApiInstallController extends Controller
                     $response['version'] = "2.10";
                     break;
                 case "1":
-                   // $response['console'][0] = $this->installGit($ssh);
+                    $response['console'][0] = $this->installGit($ssh);
                     $response['version'] = $this->exec_command($ssh, "git --version");
                     $response['status'] = ($this->isInstalled($ssh, "git")) ? "success" : "failed";
                     break;
@@ -120,21 +120,21 @@ class ApiInstallController extends Controller
     public function checkIfInstallAction(Request $request)
     {
 
-        try {
+        //try {
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
 
             $software = $request->query->get("software", "");
             $id = $request->query->get('id', "0");
 
-            $platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
+            /*$platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
 
             if($platform){
 
                 $parameters['server_name'] = $platform->getId();
                 $parameters['ssh_username'] = $platform->getServer();
                 $parameters['ssh_password'] = $platform->getSshPassword();
-            }
+            }*/
 
             $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
             $parameters['ssh_username'] = "root";           // "root";
@@ -180,10 +180,10 @@ class ApiInstallController extends Controller
 
             return new JsonResponse($response);
 
-        } catch (\Exception $e) {
+        /*} catch (\Exception $e) {
             //$response['error'] =  $e->getMessage();
             return new JsonResponse("une erreur est survenue");
-        }
+        }*/
 
     }
 
