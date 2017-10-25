@@ -136,43 +136,7 @@ $(document).ready(function () {
     //progress deploiement
 
 
-    $('[id="btn-intall"]').on('click', function (e) { 
-        e.preventDefault();
-        var element = $(this);
-        var url = element.attr('href');
-        //console.log(url);
-        var level = element.attr('level');
-
-        element.parent().fadeOut(function () { 
-            $('.content-' + level).html('<img src="load.gif" class="load">');
-            $.ajax({
-                method: 'GET',
-                url: url,
-                data: {id: '0', level: level},
-                dataType: 'JSON'
-            }).done(function (data) { 
-                $('.load').fadeOut(function () { 
-                    swal(
-                        'Good job!',
-                        'You clicked the button!',
-                        'success'
-                      )
-                    $('.content-' + level).html('<div class="terminal"><pre>' + data + '</pre></div>')
-                });
-            }).fail(function (data) { 
-                $('.load').fadeOut(function () {
-                    
-                    swal(
-                        'Oops...',
-                        'Une erreur s\'est produite pendant l\'instalation de DOCKER!',
-                        'error'
-                    )
-                    $('.content-' + level).html('<div class="terminal"><pre>' + data + '</pre></div>')
-                });
-            })
-        });
-
-     });
+    
 
 
     function checkForm(idForm) { 
