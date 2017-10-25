@@ -70,9 +70,9 @@ class ApiInstallController extends Controller
             {
 
                 case "0":
-                    $response['console'][0] = $this->exec_command($ssh, "lscpu");
-                    $response['console'][1] = "Veuillez reprendre svp";
-                    $response['version'] = "2.10";
+                    $ssh->setTimeout(100000);
+                    $response['console'][0] = $this->exec_command($ssh, "apt-get -y install php5-cli");
+                    $response['version'] = $this->exec_command($ssh, "php --version");
                     break;
 
                 case "1":
@@ -168,6 +168,12 @@ class ApiInstallController extends Controller
 
             switch ($software)
             {
+
+                case "php":
+                    $response['version'] = $this->exec_command($ssh, "php --version");
+                    $response['status'] = ($this->isInstalled($ssh, "php5-cli")) ? "success" : "failed";
+                    break;
+
                 case "docker":
                     $response['version'] = $this->exec_command($ssh, "docker --version");
                     $response['status'] = ($this->isInstalled($ssh, "docker-ce")) ? "success" : "failed";
@@ -276,12 +282,17 @@ class ApiInstallController extends Controller
     {
         $res = null;
 
-        if($package==="docker-compose"){
-            $res = $ssh->exec('test -e FILENAME && echo "File exists" || echo "File doesn\'t exist');
-            $res==="1" ? true: false;
+        if($package==="docker-compose")
+        {
+            $res = $ssh->exec('test -e /usr/local/bin//docker-compose && echo "1" || echo "0');
+            echo $res . PHP_EOL;
+            return ($res === "1") ? true : false;
+        }elseif($package==="composer"){
+            $res = $ssh->exec('test -e /usr/local/bin/composer && echo "1" || echo "0');
+            return ($res === "1") ? true : false;
         }
-
         else{
+
             $isPackageInstallMessage = "install ok installed";
             $res = $ssh->exec("dpkg-query -W -f='\${Status}' " . $package);
             return (strcmp(trim($res), trim($isPackageInstallMessage)) === 0) ? true : false;
@@ -348,9 +359,11 @@ class ApiInstallController extends Controller
      */
     function installComposer($ssh)
     {
-        return $this->exec_command($ssh, "curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin" .
-            "composer --version"
-        );
+        if(!$this->isInstalled($ssh, "php5-cli")){
+            $this->exec_command($ssh, "apt-get -y install php5-cli;");
+        }
+
+        return $this->exec_command($ssh, "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer");
     }
 
 
