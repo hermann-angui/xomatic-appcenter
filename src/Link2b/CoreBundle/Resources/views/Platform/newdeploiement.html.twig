@@ -336,6 +336,14 @@
 			}
 			
 		})
+		.fail(function () { 
+			$('[id="load"]').fadeToggle();
+			swal(
+				'Oops...',
+				'Une erreur réseau s\'est produite pendant l\'instalation de ' + select.data('software') + '!',
+				'error'
+			)
+		});
 	 });
 
 	$('[id="btn-intall"]').on('click', function (e) { 
