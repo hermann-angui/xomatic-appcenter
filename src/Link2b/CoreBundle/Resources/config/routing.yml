@@ -18,6 +18,10 @@ finish_deploy_platform:
     path:     /platform/deploy/finish
     defaults: { _controller: CoreBundle:Platform:finishDeploiement }
 
+update_platform_deploy:
+    path:     /platform/deploy/update
+    defaults: { _controller: CoreBundle:Platform:updateDeploiement }
+
 api_install:
     path:     /api/install
     defaults: { _controller: CoreBundle:Api/ApiInstall:install }

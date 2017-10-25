@@ -221,7 +221,7 @@ class ApiInstallController extends Controller
             $id = $request->query->get('id', "0");
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-            $platform = $this->getDoctrine()
+            /*$platform = $this->getDoctrine()
                             ->getRepository(Platform::class)
                             ->find($id);
 
@@ -237,7 +237,7 @@ class ApiInstallController extends Controller
 
                 $parameters['github_branch'] = $platform->getGithubBranch();
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
-            }
+            }*/
 
             $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
             $parameters['ssh_username'] = "root";           // "root";
