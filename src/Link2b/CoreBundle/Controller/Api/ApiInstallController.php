@@ -39,14 +39,14 @@ class ApiInstallController extends Controller
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
             }
 
-            $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
+            $parameters['server_name']  = "217.182.141.130";  //"192.168.99.100";
             $parameters['ssh_username'] = "root";           // "root";
-            $parameters['ssh_password'] = "anguidev";           //"fgHIoj";
-            $parameters['install_dir']  =  "/home/angui";       //"/home/debian";
+            $parameters['ssh_password'] = "76uiKoidx";       // "anguidev";
+            $parameters['install_dir']  = "/home/debian";   //"/home/angui";
             $parameters['xomatic_dir'] =  "xomatic";
             $parameters['traefik_dir']  = "traefik";
 
-            $parameters['github_branch'] = "https://github.com/hermann-angui/TestRepo.git";
+            $parameters['github_branch'] = "https://github.com/ltbt/xomatic.git";
             $parameters['github_branch'] = substr_replace($parameters['github_branch'], "hermann-angui:scawfield2870@", 8, 0);
 
             $parameters['github_traefik'] = "https://github.com/ltbt/dmpxo-traefik.git";
@@ -68,7 +68,6 @@ class ApiInstallController extends Controller
 
             switch ($step)
             {
-
                 case "0":
                     $ssh->setTimeout(100000);
                     $response['console'][0] = $this->exec_command($ssh, "apt-get -y install php5-cli");
@@ -108,13 +107,15 @@ class ApiInstallController extends Controller
                     break;
 
                 case "6":
-                    $response['console'][0] = $this->gitCloneXomatic($ssh, $parameters['install_dir'], $parameters['xomatic_dir'] , $parameters['github_branch']);
+
+                    $response['console'][0] = $this->gitCloneXomatic($ssh, $parameters['install_dir'], $parameters['xomatic_dir'] , $parameters['github_branch'], "demo-docker-xomatic");
                     $response['console'][1] = $this->composerInstallXomaticVendorPackage($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
-                    $response['console'][2] = $this->launchXomaticDockerContainer($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
+                   // $response['console'][2] = $this->launchXomaticDockerContainer($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
                     $this->chmodXomaticDir($ssh,"{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
                     break;
 
                 default:
+
                     $response['error'] = "Aucune étapes ne correspond a votre choix";
             }
 
@@ -150,9 +151,9 @@ class ApiInstallController extends Controller
                 $parameters['ssh_password'] = $platform->getSshPassword();
             }
 
-            $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
+            $parameters['server_name']  = "217.182.141.130"; //"192.168.99.100";
             $parameters['ssh_username'] = "root";           // "root";
-            $parameters['ssh_password'] = "anguidev";           //"fgHIoj";
+            $parameters['ssh_password'] = "76uiKoidx"; //"anguidev";
 
             $response = null;
 
@@ -176,7 +177,7 @@ class ApiInstallController extends Controller
 
                 case "docker":
                     $response['version'] = $this->exec_command($ssh, "docker --version");
-                    $response['status'] = ($this->isInstalled($ssh, "docker-ce")) ? "success" : "failed";
+                    $response['status'] = ($this->isInstalled($ssh, "docker-ce") || $this->isInstalled($ssh, "docker-engine")) ? "success" : "failed";
                     break;
 
                 case "docker-compose":
@@ -413,10 +414,10 @@ class ApiInstallController extends Controller
      * @param $url
      * @return bool
      */
-    function gitCloneXomatic($ssh, $path, $clone_dir, $url)
+    function gitCloneXomatic($ssh, $path, $clone_dir, $url, $branch_name)
     {
         return $this->exec_command($ssh, "cd {$path};" .
-            "git clone {$url} {$clone_dir}"
+            "git clone {$url} -b {$branch_name} {$clone_dir}"
         );
     }
 
