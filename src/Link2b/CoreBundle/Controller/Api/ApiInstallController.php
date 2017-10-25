@@ -194,6 +194,7 @@ class ApiInstallController extends Controller
 
                 case "composer":
                     $response['version'] = $this->exec_command($ssh, "composer --version");
+                    $response['version'] = trim(substr($response['version'] , strlen("Do not run Composer as root/super user! See https://getcomposer.org/root for details")+1));
                     $response['status'] = ($this->isInstalled($ssh, "composer")) ? "success" : "failed";
                     break;
 
@@ -292,15 +293,15 @@ class ApiInstallController extends Controller
 
         if($package==="docker-compose") {
 
-            $res = $ssh->exec('test -e /usr/local/bin/docker-compose && echo "1" || echo "0');
-            return ($res === "1") ? true : false;
+            $res = $ssh->exec('test -e /usr/local/bin/docker-compose && echo "1" || echo "0"');
+            return $res;
 
-        }else if($package==="composer") {
+        }else if($package ==="composer") {
 
-            $res = $ssh->exec('test -e /usr/local/bin/composer && echo "1" || echo "0');
-            return ($res === "1") ? true : false;
+            $res = $ssh->exec('test -e /usr/local/bin/composer && echo "1" || echo "0"');
+            return $res; //($res === "1") ? true : false;
 
-        }else {
+        }else{
 
             $isPackageInstallMessage = "install ok installed";
             $res = $ssh->exec("dpkg-query -W -f='\${Status}' " . $package);
