@@ -302,6 +302,10 @@
 		//console.log(btn);
 		var btn_close = '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
+		if (select.data('software') === 'traefik' || select.data('software') === 'xomatic') {
+			
+		}
+
 		$.ajax({
 			method: 'GET',
 			url: 'http://localhost:8000/api/check/install',
