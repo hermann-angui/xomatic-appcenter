@@ -14,14 +14,14 @@ class ApiInstallController extends Controller
     public function installAction(Request $request)
     {
 
-       try {
+       //try {
 
             $id = $request->query->get('id', "0");
 
             $parameters['step'] = $request->query->get('step', '0');
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-            $platform = $this->getDoctrine()
+            /*$platform = $this->getDoctrine()
                              ->getRepository(Platform::class)
                              ->find($id);
 
@@ -37,7 +37,7 @@ class ApiInstallController extends Controller
 
                 $parameters['github_branch'] = $platform->getGithubBranch();
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
-            }
+            }*/
 
             $parameters['server_name']  = "217.182.141.130";  //"192.168.99.100";
             $parameters['ssh_username'] = "root";           // "root";
@@ -65,13 +65,21 @@ class ApiInstallController extends Controller
             }
 
             $step = $request->query->get("step", "0");
+<<<<<<< HEAD
 
            $ssh->setTimeout(100000);
 
+=======
+            
+            $ssh->setTimeout(100000);
+>>>>>>> christianDev
             switch ($step)
             {
                 case "0":
+<<<<<<< HEAD
 
+=======
+>>>>>>> christianDev
                     $response['console'][0] = $this->exec_command($ssh, "apt-get -y install php5-cli");
                     $response['version'] = $this->exec_command($ssh, "php --version");
                     break;
@@ -123,11 +131,11 @@ class ApiInstallController extends Controller
 
             return new JsonResponse($response);
 
-        } catch (\Exception $e) {
+        /*} catch (\Exception $e) {
 
             $response['error'] = $e->getMessage();
             return new JsonResponse($response);
-        }
+        }*/
 
     }
 
@@ -138,20 +146,20 @@ class ApiInstallController extends Controller
     public function checkIfInstallAction(Request $request)
     {
 
-        try {
+        //try {
 
             $software = $request->query->get("software", "");
             $id = $request->query->get('id', "0");
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-            $platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
+            //$platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
 
-            if($platform){
+            /*if($platform){
 
                 $parameters['server_name'] = $platform->getId();
                 $parameters['ssh_username'] = $platform->getServer();
                 $parameters['ssh_password'] = $platform->getSshPassword();
-            }
+            }*/
 
             $parameters['server_name']  = "217.182.141.130"; //"192.168.99.100";
             $parameters['ssh_username'] = "root";           // "root";
@@ -205,10 +213,10 @@ class ApiInstallController extends Controller
 
             return new JsonResponse($response);
 
-        } catch (\Exception $e) {
+        /*} catch (\Exception $e) {
             //$response['error'] =  $e->getMessage();
             return new JsonResponse("une erreur est survenue");
-        }
+        }*/
 
     }
 
@@ -224,7 +232,7 @@ class ApiInstallController extends Controller
             $id = $request->query->get('id', "0");
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-            $platform = $this->getDoctrine()
+            /*$platform = $this->getDoctrine()
                             ->getRepository(Platform::class)
                             ->find($id);
 
@@ -240,7 +248,7 @@ class ApiInstallController extends Controller
 
                 $parameters['github_branch'] = $platform->getGithubBranch();
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
-            }
+            }*/
 
             $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
             $parameters['ssh_username'] = "root";           // "root";
@@ -289,12 +297,12 @@ class ApiInstallController extends Controller
         if($package==="docker-compose") {
 
             $res = $ssh->exec('test -e /usr/local/bin/docker-compose && echo "1" || echo "0"');
-            return $res;
+            return (bool)trim($res); // ($res === 1) ? true : false;
 
         }else if($package ==="composer") {
 
             $res = $ssh->exec('test -e /usr/local/bin/composer && echo "1" || echo "0"');
-            return $res; //($res === "1") ? true : false;
+            return (bool)trim($res);//($res === "1") ? true : false;
 
         }else{
 

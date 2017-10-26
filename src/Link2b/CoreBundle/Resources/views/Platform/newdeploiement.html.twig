@@ -104,7 +104,7 @@
 
 												</div>
 												<div class="text-center">
-													<input type='button' class="btn btn-next btn-fill btn-success btn-wd btn-start" name='next' value="Démarer l'instalation" data-software="git" id="0"/>
+													<input type='button' class="btn btn-next btn-fill btn-success btn-wd btn-start" name='next' value="Démarer l'instalation" data-software="git" id="0" data-href="{{path('api_checkif_install')}}"/>
 												</div>
 		                            		</div>
 		                            	</div>
@@ -125,8 +125,8 @@
 										</div>
 										<div class="wizard-footer">
 											<div class="pull-right">
-												<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="git"> Installer Git <i class="fa fa-download"></i></a>
-												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-1' name='next' value='Suivant' data-software="docker" id="0"/>
+												<a href="{{path('api_install')}}" class="btn btn-info" id="btn-intall" data-step="git"> Installer Git <i class="fa fa-download"></i></a>
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-1' name='next' value='Suivant' data-software="docker" id="0"  data-href="{{path('api_checkif_install')}}"/>
 											</div>
 		
 											<div class="pull-left">
@@ -153,8 +153,8 @@
 										
 										<div class="wizard-footer">
 											<div class="pull-right">
-												<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="docker" data-id="0"> Installer Docker <i class="fa fa-download"></i></a>
-												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-2' name='next' value='Suivant' data-software="docker-compose" id="0"/>
+												<a href="{{path('api_install')}}" class="btn btn-info" id="btn-intall" data-step="docker" data-id="0"> Installer Docker <i class="fa fa-download"></i></a>
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-2' name='next' value='Suivant' data-software="docker-compose" id="0"  data-href="{{path('api_checkif_install')}}"/>
 											</div>
 		
 											<div class="pull-left">
@@ -178,8 +178,8 @@
 										</div>
 										<div class="wizard-footer">
 											<div class="pull-right">
-												<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="docker-compose" data-id="0"> Installer Docker-compose <i class="fa fa-download"></i></a>
-												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-3' name='next' value='Suivant' data-software="composer" id="0"/>
+												<a href="{{path('api_install')}}" class="btn btn-info" id="btn-intall" data-step="docker-compose" data-id="0"> Installer Docker-compose <i class="fa fa-download"></i></a>
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-3' name='next' value='Suivant' data-software="composer" id="0"  data-href="{{path('api_checkif_install')}}"/>
 											</div>
 		
 											<div class="pull-left">
@@ -203,8 +203,8 @@
 										</div>
 										<div class="wizard-footer">
 											<div class="pull-right">
-												<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="composer" data-id="0"> Installer composer <i class="fa fa-download"></i></a>
-												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-4' name='next' value='Suivant' data-software="traefik" id="0"/>
+												<a href="{{path('api_install')}}" class="btn btn-info" id="btn-intall" data-step="composer" data-id="0"> Installer composer <i class="fa fa-download"></i></a>
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-4' name='next' value='Suivant' data-software="traefik" id="0"  data-href="{{path('api_checkif_install')}}"/>
 											</div>
 		
 											<div class="pull-left">
@@ -229,8 +229,8 @@
 										</div>
 										<div class="wizard-footer">
 											<div class="pull-right">
-												<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="traefik" data-id="0"> Installer Traefik <i class="fa fa-download"></i></a>
-												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-5' name='next' value='Suivant' data-software="xomatic" id="0" />
+												<a href="{{path('api_install')}}" class="btn btn-info" id="btn-intall" data-step="traefik" data-id="0"> Installer Traefik <i class="fa fa-download"></i></a>
+												<input type='button' class='btn btn-next btn-fill btn-success btn-wd btn-level-5' name='next' value='Suivant' data-software="xomatic" id="0" data-href="{{path('api_checkif_install')}}"/>
 											</div>
 		
 											<div class="pull-left">
@@ -254,8 +254,8 @@
 										</div>
 										<div class="wizard-footer">
 											<div class="pull-right">
-												<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="xomatic" data-id="0"> Installer XO-Matic <i class="fa fa-download"></i></a>
-												<input type='button' class='btn btn-finish btn-fill btn-success btn-wd btn-end' name='finish' value='Terminer' />
+												<a href="{{path('api_install')}}" class="btn btn-info" id="btn-intall" data-step="xomatic" data-id="0"> Installer XO-Matic <i class="fa fa-download"></i></a>
+												<a href="{{path('finish_deploy_platform')}}" class='btn btn-finish btn-fill btn-success btn-wd btn-end' >Terminer</a>
 											</div>
 		
 											<div class="pull-left">
@@ -297,53 +297,68 @@
 	<script>
 		
 	$('[name="next"]').on('click' ,function () { 
-		$('[id="load"]').fadeToggle();
+		
 		var select = $(this);
 		//console.log(btn);
 		var btn_close = '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
-		$.ajax({
-			method: 'GET',
-			url: 'http://localhost:8000/api/check/install',
-			data: {
-				id: select.attr('id'),
-				software: select.data('software')
-			},
-			dataType: 'JSON'
-		}).done(function (data) { 
-			$('[id="load"]').fadeToggle();
-			//$('[id="' + select.attr('software') + '"]').fadeToggle();
-			//console.log(data.status);
-			if (data.status === 'success') {
+		if (select.data('software') === 'traefik' || select.data('software') === 'xomatic') {
 
-				$('[id="msg-' + select.data('software') + '"]')
-				.removeClass('*')
-				.addClass('alert alert-success text-center')
-				.html(btn_close + '<h4 class="alert-heading">Vérification de ' + data.version + ' !</h4><p class="text-success">' + data.version + ' est installé sur le serveur. Passer a l\'étape suivante.</p><br>')
-				.slideDown();
-				$('[id="btn-intall"]').hide();
-			} else if (data.status === 'failed') {
-				//var btn = '<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="' + select.attr('software') + '"> Installer ' + select.attr('software') + ' <i class="fa fa-download"></i></a>';
-
-				$('[id="msg-' + select.data('software') + '"]')
-				.removeClass('*')
-				.addClass('alert alert-danger text-center')
-				.html(btn_close + '<h4 class="alert-heading">Vérification de ' + select.data('software') + ' !</h4><p class="text-danger">' + select.data('software') + ' n\'est pas installé sur le serveur. Pour le faire cliquer sur le bouton installer ' + select.data('software') + '.</p>')
-				.slideDown();
-				$('[id="btn-intall"]').show();
-				$('[name="next"]').hide();
-
-			}
+			$('[id="msg-' + select.data('software') + '"]')
+			.removeClass('*')
+			.addClass('alert alert-info text-center')
+			.html(btn_close + '<h4 class="alert-heading">Installation de ' + select.data('software') + ' !</h4><p class=""> Pour installer' + select.data('software') + ' sur le serveur. click sur bouton installer.</p><br>')
+			.slideDown();
+			$('[id="btn-intall"]').show();
 			
-		})
-		.fail(function () { 
+		} else {
 			$('[id="load"]').fadeToggle();
-			swal(
-				'Oops...',
-				'Une erreur réseau s\'est produite pendant l\'instalation de ' + select.data('software') + '!',
-				'error'
-			)
-		});
+
+			$.ajax({
+				method: 'GET',
+				url: select.data('href'),
+				data: {
+					id: select.attr('id'),
+					software: select.data('software')
+				},
+				dataType: 'JSON'
+			}).done(function (data) { 
+				$('[id="load"]').fadeToggle();
+				//$('[id="' + select.attr('software') + '"]').fadeToggle();
+				//console.log(data.status);
+				if (data.status === 'success') {
+
+					$('[id="msg-' + select.data('software') + '"]')
+					.removeClass('*')
+					.addClass('alert alert-success text-center')
+					.html(btn_close + '<h4 class="alert-heading">Vérification de ' + data.version + ' !</h4><p class="text-success">' + data.version + ' est installé sur le serveur. Passer a l\'étape suivante.</p><br>')
+					.slideDown();
+					$('[id="btn-intall"]').hide();
+				} else if (data.status === 'failed') {
+					//var btn = '<a href="http://localhost:8000/api/install" class="btn btn-info" id="btn-intall" data-step="' + select.attr('software') + '"> Installer ' + select.attr('software') + ' <i class="fa fa-download"></i></a>';
+
+					$('[id="msg-' + select.data('software') + '"]')
+					.removeClass('*')
+					.addClass('alert alert-danger text-center')
+					.html(btn_close + '<h4 class="alert-heading">Vérification de ' + select.data('software') + ' !</h4><p class="text-danger">' + select.data('software') + ' n\'est pas installé sur le serveur. Pour le faire cliquer sur le bouton installer ' + select.data('software') + '.</p>')
+					.slideDown();
+					$('[id="btn-intall"]').show();
+					$('[name="next"]').hide();
+
+				}
+				
+			})
+			.fail(function () { 
+				$('[id="load"]').fadeToggle();
+				swal(
+					'Oops...',
+					'Une erreur réseau s\'est produite pendant l\'instalation de ' + select.data('software') + '!',
+					'error'
+				)
+			});
+		}
+
+		
 	 });
 
 	$('[id="btn-intall"]').on('click', function (e) { 
@@ -388,7 +403,7 @@
 			method: 'GET',
 			url: url,
 			data: {
-				id: element.attr('id'),
+				id: element.data('id'),
 			 	step: step
 			},
 			dataType: 'JSON'
@@ -411,6 +426,10 @@
 					'Une erreur s\'est produite pendant l\'instalation de ' + element.data('step') + '!',
 					'error'
 				);
+				
+				$('.content-' + step).html('<div class="terminal"><pre class="text-left" style="color: #28a745">' + data.console + '</pre></div>');
+				$('[name="next"]').show();
+			} else {
 				
 				$('.content-' + step).html('<div class="terminal"><pre class="text-left" style="color: #28a745">' + data.console + '</pre></div>');
 				$('[name="next"]').show();

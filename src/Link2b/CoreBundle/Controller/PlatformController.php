@@ -25,4 +25,14 @@ class PlatformController extends Controller
     {
         return $this->render('CoreBundle:Platform:newdeploiement.html.twig');
     }
+
+    public function finishDeploiementAction(Request $request)
+    {
+        return $this->render('CoreBundle:Platform:finishDeploiement.html.twig');
+    }
+
+    public function updateDeploiementAction(Request $request)
+    {
+        return $this->render('CoreBundle:Platform:updateDeploiement.html.twig');
+    }
 }

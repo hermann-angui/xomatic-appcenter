@@ -1,0 +1,103 @@
+
+{% extends 'layout.html.twig' %}
+{% block title %}Platforme XO-Matic Installer{% endblock title %}
+{% block body %}
+
+<!-- Page Content -->
+<!-- Page Content -->
+<div id="page-content-wrapper">
+        
+    <div class="container">
+        
+        <h1 class="">Mise à jour de déploiement test </h1> 
+        <hr>
+        <div class="row jumbotron">
+            <div class="col-md-12">
+                <h2>Information du déploiement</h2>
+                <br>
+            </div>
+            <div class="col-md-6">
+                <ul class="info-list">
+                    <li>
+                        <div class="">
+                            <h4>Titre du déploiement</h4>
+                            <p>déploiement test</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="">
+                            <h4><i class="fa fa-server"></i> SSH </h4>
+                            <dl>
+                                <dt>lien SSH</dt>
+                                <dd>127.3.3.1</dd>
+                                <dt>Login SSH</dt>
+                                <dd>testlogin</dd>
+                            </dl>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="">
+                            <h4><i class="fa fa-server"></i> FTP </h4>
+                            <dl>
+                                <dt>lien SSH</dt>
+                                <dd>http://127.3.3.1</dd>
+                                <dt>Login SSH</dt>
+                                <dd>testlogin</dd>
+                            </dl>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="">
+                            <h4><i class="fa fa-github"></i> GitHub </h4>
+                            <dl>
+                                <dt>Login</dt>
+                                <dd>testlogin</dd>
+                                <dt>Branch git</dt>
+                                <dd>test</dd>
+                            </dl>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul>
+                    <li>
+                        <div class="">
+                            <dl>
+                                <dt>Description</dt>
+                                <dd>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores repudiandae earum aspernatur repellat molestiae ullam necessitatibus deleniti tempora reiciendis dolores in cupiditate, blanditiis dignissimos soluta aliquid accusamus facilis eveniet sit.</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="">
+                            <dl>
+                                <dt>Note</dt>
+                                <dd>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores repudiandae earum aspernatur repellat molestiae ullam necessitatibus deleniti tempora reiciendis dolores in cupiditate, blanditiis dignissimos soluta aliquid accusamus facilis eveniet sit.</p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-12">
+                <a href="startupdate.html"><button class="btn btn-outline-success" ><i class="fa fa-cloud-download" aria-hidden="true"></i> Faire la mise à jour</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /#page-content-wrapper -->
+{% endblock body %}
+{% block javascripts %}
+
+    {{ parent() }}
+    
+    <script>
+    
+    </script>
+	
+
+{% endblock %}
