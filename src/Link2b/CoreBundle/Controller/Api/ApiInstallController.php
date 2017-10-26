@@ -65,21 +65,12 @@ class ApiInstallController extends Controller
             }
 
             $step = $request->query->get("step", "0");
-<<<<<<< HEAD
-
-           $ssh->setTimeout(100000);
-
-=======
             
             $ssh->setTimeout(100000);
->>>>>>> christianDev
+
             switch ($step)
             {
                 case "0":
-<<<<<<< HEAD
-
-=======
->>>>>>> christianDev
                     $response['console'][0] = $this->exec_command($ssh, "apt-get -y install php5-cli");
                     $response['version'] = $this->exec_command($ssh, "php --version");
                     break;
