@@ -66,10 +66,12 @@ class ApiInstallController extends Controller
 
             $step = $request->query->get("step", "0");
 
+           $ssh->setTimeout(100000);
+
             switch ($step)
             {
                 case "0":
-                    $ssh->setTimeout(100000);
+
                     $response['console'][0] = $this->exec_command($ssh, "apt-get -y install php5-cli");
                     $response['version'] = $this->exec_command($ssh, "php --version");
                     break;
@@ -110,8 +112,8 @@ class ApiInstallController extends Controller
 
                     $response['console'][0] = $this->gitCloneXomatic($ssh, $parameters['install_dir'], $parameters['xomatic_dir'] , $parameters['github_branch'], "demo-docker-xomatic");
                     $response['console'][1] = $this->composerInstallXomaticVendorPackage($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
-                   // $response['console'][2] = $this->launchXomaticDockerContainer($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
                     $this->chmodXomaticDir($ssh,"{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
+                    $response['console'][2] = $this->launchXomaticDockerContainer($ssh, "{$parameters['install_dir']}/{$parameters['xomatic_dir']}");
                     break;
 
                 default:
@@ -443,7 +445,7 @@ class ApiInstallController extends Controller
     function composerInstallXomaticVendorPackage($ssh, $path)
     {
         return $this->exec_command($ssh, "cd {$path}/app;" .
-            "php composer install --ignore-platform-reqs"
+            "composer install --ignore-platform-reqs"
         );
     }
 
