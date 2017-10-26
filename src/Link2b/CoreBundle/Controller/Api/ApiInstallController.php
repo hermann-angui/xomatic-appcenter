@@ -65,12 +65,12 @@ class ApiInstallController extends Controller
             }
 
             $step = $request->query->get("step", "0");
-
+            
+            $ssh->setTimeout(100000);
             switch ($step)
             {
 
                 case "0":
-                    $ssh->setTimeout(100000);
                     $response['console'][0] = $this->exec_command($ssh, "apt-get -y install php5-cli");
                     $response['version'] = $this->exec_command($ssh, "php --version");
                     break;
@@ -286,12 +286,12 @@ class ApiInstallController extends Controller
         if($package==="docker-compose") {
 
             $res = $ssh->exec('test -e /usr/local/bin/docker-compose && echo "1" || echo "0"');
-            return $res;
+            return (bool)trim($res); // ($res === 1) ? true : false;
 
         }else if($package ==="composer") {
 
             $res = $ssh->exec('test -e /usr/local/bin/composer && echo "1" || echo "0"');
-            return $res; //($res === "1") ? true : false;
+            return (bool)trim($res);//($res === "1") ? true : false;
 
         }else{
 
