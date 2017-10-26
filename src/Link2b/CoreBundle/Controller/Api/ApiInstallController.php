@@ -39,10 +39,10 @@ class ApiInstallController extends Controller
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
             }*/
 
-            $parameters['server_name']  = "217.182.141.130";  //"192.168.99.100";
+            $parameters['server_name']  = "192.168.99.100"; //"217.182.141.130";
             $parameters['ssh_username'] = "root";           // "root";
-            $parameters['ssh_password'] = "76uiKoidx";       // "anguidev";
-            $parameters['install_dir']  = "/home/debian";   //"/home/angui";
+            $parameters['ssh_password'] = "anguidev";       //"76uiKoidx"; 
+            $parameters['install_dir']  = "/home/angui";    //"/home/debian";
             $parameters['xomatic_dir'] =  "xomatic";
             $parameters['traefik_dir']  = "traefik";
 
@@ -152,9 +152,9 @@ class ApiInstallController extends Controller
                 $parameters['ssh_password'] = $platform->getSshPassword();
             }*/
 
-            $parameters['server_name']  = "217.182.141.130"; //"192.168.99.100";
+            $parameters['server_name']  = "192.168.99.100"; //"217.182.141.130"; 
             $parameters['ssh_username'] = "root";           // "root";
-            $parameters['ssh_password'] = "76uiKoidx"; //"anguidev";
+            $parameters['ssh_password'] = "anguidev";       //"76uiKoidx"; 
 
             $response = null;
 
@@ -242,7 +242,7 @@ class ApiInstallController extends Controller
             }*/
 
             $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
-            $parameters['ssh_username'] = "root";           // "root";
+            $parameters['ssh_username'] = "root";               // "root";
             $parameters['ssh_password'] = "anguidev";           //"fgHIoj";
             $parameters['install_dir']  =  "/home/angui";       //"/home/debian";
             $parameters['github_branch'] = "https://github.com/hermann-angui/TestRepo.git";
