@@ -417,8 +417,21 @@
 					'success'
 				);
 
-				$('.content-' + step).html('<div class="terminal"><pre class="text-left" style="color: #28a745">' + data.console + '</pre></div>');
-				$('[name="next"]').show();
+				if (step === 5){
+
+                    $('.content-' + step).html('<div class="terminal"><pre class="text-left" style="color: #28a745">' + data.console['0'] + '<br>' + data.console['1'] + '</pre></div>');
+                    $('[name="next"]').show();
+
+				} else if(step === 6){
+
+                    $('.content-' + step).html('<div class="terminal"><pre class="text-left" style="color: #28a745">' + data.console['0'] + '<br>' + data.console['1'] + '<br>' + data.console['2'] + '</pre></div>');
+                    $('[name="next"]').show();
+
+				} else {
+
+                    $('.content-' + step).html('<div class="terminal"><pre class="text-left" style="color: #28a745">' + data.console + '</pre></div>');
+                    $('[name="next"]').show();
+				}
 			} else if (data.status === 'failed') {
 
 				swal(
