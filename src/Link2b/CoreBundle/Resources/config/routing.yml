@@ -8,11 +8,13 @@ new_platform:
 
 create_platform:
     path:     /platform/create
-    defaults: { _controller: CoreBundle:Platform:create }
+    defaults: { _controller: CoreBundle:Api/ApiPlatform:create }
 
 new_deploy_platform:
-    path:     /platform/deploy
+    path:     /platform/deploy/{id}
     defaults: { _controller: CoreBundle:Platform:newDeploiement }
+    requirements:
+        id: '\d+'
 
 finish_deploy_platform:
     path:     /platform/deploy/finish

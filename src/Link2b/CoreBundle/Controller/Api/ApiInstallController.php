@@ -14,39 +14,40 @@ class ApiInstallController extends Controller
     public function installAction(Request $request)
     {
 
-       //try {
+       try {
 
-            $id = $request->query->get('id', "0");
+            $id = $request->query->get('id');
 
-            $parameters['step'] = $request->query->get('step', '0');
+            //$parameters['step'] = $request->query->get('step');
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-            /*$platform = $this->getDoctrine()
+            $platform = $this->getDoctrine()
                              ->getRepository(Platform::class)
                              ->find($id);
 
             if($platform)
             {
-                $parameters['server_name'] = $platform->getId();
-                $parameters['ssh_username'] = $platform->getServer();
+                $parameters['server_name'] = $platform->getFtpServer();
+                $parameters['ssh_username'] = $platform->getSshUsername();
                 $parameters['ssh_password'] = $platform->getSshPassword();
                 $parameters['install_dir'] = $platform->getInstallionDir();
 
                 $parameters['xomatic_dir'] = $platform->getXomaticDir();
                 $parameters['traefik_dir'] = $platform->getTraefikDir();
-
+                /*
                 $parameters['github_branch'] = $platform->getGithubBranch();
                 $parameters['github_traefik'] = $platform->getGithubTraefik();
-            }*/
-
-            $parameters['server_name']  = "192.168.99.100"; //"217.182.141.130";
+                */
+            }
+            /*
+            $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
             $parameters['ssh_username'] = "root";           // "root";
             $parameters['ssh_password'] = "anguidev";       //"76uiKoidx"; 
             $parameters['install_dir']  = "/home/angui";    //"/home/debian";
             $parameters['xomatic_dir'] =  "xomatic";
             $parameters['traefik_dir']  = "traefik";
-
-            $parameters['github_branch'] = "https://github.com/ltbt/xomatic.git";
+            */
+            $parameters['github_branch'] = "https://github.com/hermann-angui/TestRepo.git";
             $parameters['github_branch'] = substr_replace($parameters['github_branch'], "hermann-angui:scawfield2870@", 8, 0);
 
             $parameters['github_traefik'] = "https://github.com/ltbt/dmpxo-traefik.git";
@@ -64,10 +65,10 @@ class ApiInstallController extends Controller
                 }
             }
 
-            $step = $request->query->get("step", "0");
+            $step = $request->query->get("step");
             
             $ssh->setTimeout(100000);
-
+            
             switch ($step)
             {
                 case "0":
@@ -122,11 +123,11 @@ class ApiInstallController extends Controller
 
             return new JsonResponse($response);
 
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             $response['error'] = $e->getMessage();
             return new JsonResponse($response);
-        }*/
+        }
 
     }
 
@@ -137,25 +138,28 @@ class ApiInstallController extends Controller
     public function checkIfInstallAction(Request $request)
     {
 
-        //try {
+        try {
 
-            $software = $request->query->get("software", "");
-            $id = $request->query->get('id', "0");
+            $software = $request->query->get("software");
+            $id = $request->query->get('id');
 
             /**@var \Link2b\CoreBundle\Entity\Platform $platform **/
-            //$platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
+            $platform = $this->getDoctrine()->getRepository(Platform::class)->find($id);
+            //echo '<pre>' . print_r($platform, true) . '</pre>';
+            //die();
+            if($platform){
 
-            /*if($platform){
-
-                $parameters['server_name'] = $platform->getId();
-                $parameters['ssh_username'] = $platform->getServer();
+                $parameters['server_name'] = $platform->getFtpServer();
+                $parameters['ssh_username'] = $platform->getSshUsername();
                 $parameters['ssh_password'] = $platform->getSshPassword();
-            }*/
 
-            $parameters['server_name']  = "192.168.99.100"; //"217.182.141.130"; 
+                //
+            }
+            /*
+            $parameters['server_name']  = "192.168.99.100";     //"167.114.253.138";
             $parameters['ssh_username'] = "root";           // "root";
-            $parameters['ssh_password'] = "anguidev";       //"76uiKoidx"; 
-
+            $parameters['ssh_password'] = "anguidev";           //"fgHIoj";
+            */
             $response = null;
 
             if(!isset($ssh)) {
@@ -204,10 +208,10 @@ class ApiInstallController extends Controller
 
             return new JsonResponse($response);
 
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             //$response['error'] =  $e->getMessage();
             return new JsonResponse("une erreur est survenue");
-        }*/
+        }
 
     }
 

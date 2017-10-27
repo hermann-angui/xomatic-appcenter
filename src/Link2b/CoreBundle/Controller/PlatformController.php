@@ -21,9 +21,9 @@ class PlatformController extends Controller
     }
 
 
-    public function newDeploiementAction(Request $request)
+    public function newDeploiementAction($id)
     {
-        return $this->render('CoreBundle:Platform:newdeploiement.html.twig');
+        return $this->render('CoreBundle:Platform:newdeploiement.html.twig', ['id' => $id]);
     }
 
     public function finishDeploiementAction(Request $request)
