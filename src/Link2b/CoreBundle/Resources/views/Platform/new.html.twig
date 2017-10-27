@@ -25,7 +25,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="inputServe">Chemin du repertoir du trafique</label>
+                                    <label for="inputServe">Chemin du repertoir du traefik</label>
                                     <input name="traefik_dir" type="text" class="form-control" id="inputServe" aria-describedby="serveHelp" placeholder="" required>
                                     <small id="serveHelp" class="form-text text-danger">*</small>
                                 </div>
@@ -105,13 +105,13 @@
                                     <small id="branchGithubHelp" class="form-text text-danger">*</small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputGithubBranch">Le nom de la branch master</label>
-                                    <input name="github_master" type="text" class="form-control" id="inputGithubBranch" aria-describedby="branchGithubHelp" placeholder="">
+                                    <label for="inputGithubBranchMaster">Le nom de la branch master</label>
+                                    <input name="github_master" type="text" class="form-control" id="inputGithubBranchMaster" aria-describedby="MbranchGithubHelp" placeholder="">
                                     <small id="MbranchGithubHelp" class="form-text text-danger"></small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputGithubBranch">Le github trafique</label>
-                                    <input name="github_traefik" type="text" class="form-control" id="inputGithubBranch" aria-describedby="trafGithubHelp" placeholder="Branch gitHub" required>
+                                    <label for="inputGithubTraefik">Le github traefik</label>
+                                    <input name="github_traefik" type="text" class="form-control" id="inputGithubTraefik" aria-describedby="trafGithubHelp" placeholder="Branch gitHub" required>
                                     <small id="trafGithubHelp" class="form-text text-danger">*</small>
                                 </div>
                                 <button class="btn btn-outline-primary" id="btn-prev">Retour <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
@@ -137,6 +137,10 @@
                             
                         </form>
                     </div>
+
+                    <div class="col-12 col-md-auto text-center" id="loader" style="display: none">
+                        <img src="{{ asset('assets/img/load.gif') }}" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -146,6 +150,25 @@
 {% block javascripts %}
 
 {{ parent() }}
+
+<script>
+    $('form[class="jumbotron"]').submit(function (e) { 
+        e.preventDefault();
+        var form = $(this);
+        $('form[class="jumbotron"]').hide();
+        $('[id="loader"]').show();
+        console.log(form.attr('action'));
+
+        $.ajax({
+            method: 'POST',
+            url: form.attr('action'),
+            data: form.serializeArray(),
+            dataType: 'JSON'
+        }).done(function (data) { 
+
+        })
+    });
+</script>
 
 {% endblock %}
     
