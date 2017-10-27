@@ -10,7 +10,7 @@
                 <div class="row justify-content-md-center">
                     
                     <div class="col-12 col-md-auto">
-                        <form class="jumbotron" method="post" action="{{ path('create_platform') }}">
+                        <form class="jumbotron" method="post" action="{{ path('create_platform') }}" data-href="">
                             <fieldset id="form_1">
                                 <legend><i class="fa fa-database" aria-hidden="true"></i> Information du déploiement </legend>
                                 <div class="form-group">
@@ -45,12 +45,12 @@
                             </fieldset>
                             
                             <fieldset id="form_2">
-                                <legend><i class="fa fa-server"></i> SSH </legend>
+                                <!--<legend><i class="fa fa-server"></i> SSH </legend>
                                 <div class="form-group">
                                     <label for="inputSsh">Lien SSH</label>
-                                    <input type="text" class="form-control" id="inputSsh" aria-describedby="sshHelp" placeholder="" required>
+                                    <input type="text" name="" class="form-control" id="inputSsh" aria-describedby="sshHelp" placeholder="" required>
                                     <small id="sshHelp" class="form-text text-danger">*</small>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label for="inputLoginSsh">Indentifiant (SSH)</label>
                                     <input name="ssh_username" type="text" class="form-control" id="inputLoginSsh" aria-describedby="loginHelp" placeholder="Nom d'utilisateur SSH" required>
@@ -69,7 +69,7 @@
                                 <legend><i class="fa fa-server"></i> FTP </legend>
                                 <div class="form-group">
                                     <label for="inputFtp">Lien (FTP)</label>
-                                    <input type="text" class="form-control" id="inputFtp" aria-describedby="ftpHelp" placeholder="Lien ftp du serveur" required>
+                                    <input type="text" name="ftp_server" class="form-control" id="inputFtp" aria-describedby="ftpHelp" placeholder="Lien ftp du serveur" required>
                                     <small id="ftpHelp" class="form-text text-danger">*</small>
                                 </div>
 
@@ -123,12 +123,12 @@
 
                                 <div class="form-group">
                                     <label for="textarea">Description</label>
-                                    <textarea class="form-control" id="textarea" rows="3" style="height: 100px"></textarea>
+                                    <textarea name="description" class="form-control" id="textarea" rows="3" style="height: 100px"></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="textareaNote">Note</label>
-                                    <textarea class="form-control" id="textareaNote" rows="4" style="height: 100px"></textarea>
+                                    <textarea name="note" class="form-control" id="textareaNote" rows="4" style="height: 100px"></textarea>
                                 </div>
                                 <button class="btn btn-outline-primary" id="btn-prev">Retour <i class="fa fa-arrow-left" aria-hidden="true"></i></button>
                                 <button type="submit" class="btn btn-outline-primary"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Lancer le déploiement</button>
@@ -154,9 +154,13 @@
 <script>
     $('form[class="jumbotron"]').submit(function (e) { 
         e.preventDefault();
+
         var form = $(this);
+
         $('form[class="jumbotron"]').hide();
+
         $('[id="loader"]').show();
+
         console.log(form.attr('action'));
 
         $.ajax({
@@ -165,8 +169,39 @@
             data: form.serializeArray(),
             dataType: 'JSON'
         }).done(function (data) { 
+            if (data.status === "success") {
+                swal(
+					'Good job!',
+					' Les informations ont bien été enregistré avec succès',
+                    data.status
+                );
+                $( location ).attr("href", '/platform/deploy/' + data.id);
+            } else {
+                
+                $('[id="loader"]').hide();
 
-        })
+                $('form[class="jumbotron"]').show();
+
+                console.log(data.error);
+
+                swal(
+					'Oops...',
+					'Une erreur s\'est produite !',
+					'error'
+				);
+            }
+        }).fail(function () { 
+
+            $('[id="loader"]').hide();
+
+            $('form[class="jumbotron"]').show();
+
+			swal(
+				'Oops...',
+				'Une erreur réseau s\'est produite !',
+				'error'
+			)
+		});
     });
 </script>
 
